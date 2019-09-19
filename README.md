@@ -1,6 +1,17 @@
 
 
 
+'''
+下面运行这个模型
+'''
+写下调试过程:
+1.Key model/inference/decoder/Location_Sensitive_Attention/attention_bias not found in checkpoint
+	 [[node save/RestoreV2 (defined at /data/chongxin/synthesizer.py:24) ]]
+https://github.com/keithito/tacotron/issues/230
+2.中文模型下载.
+#https://github.com/keithito/tacotron/issues/118
+
+
 
 
 

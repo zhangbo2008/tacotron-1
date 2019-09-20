@@ -3,7 +3,7 @@ from tensorflow.contrib.rnn import GRUCell, MultiRNNCell, OutputProjectionWrappe
 from tensorflow.contrib.seq2seq import BasicDecoder, BahdanauAttention, AttentionWrapper
 from text.symbols import symbols
 from util.infolog import log
-from .helpers import TacoTestHelper, TacoTrainingHelper
+from .helpers import TacoTestHelper, TacoTrainingHelper#引入同级文件用.即可
 from .modules import encoder_cbhg, post_cbhg, prenet
 from .rnn_wrappers import DecoderPrenetWrapper, ConcatOutputAndAttentionWrapper
 
@@ -36,8 +36,8 @@ class Tacotron():
       batch_size = tf.shape(inputs)[0]
       hp = self._hparams
 
-      # Embeddings
-      embedding_table = tf.get_variable(
+      # Embeddings #把所有的符号映射到一个维度上 这里是256维.所以这里创建了embedding_table.下面学习这个table
+      embedding_table = tf.get_variable(  #根据名字说去变量,如果没有就运行初始化函数
         'embedding', [len(symbols), hp.embed_depth], dtype=tf.float32,
         initializer=tf.truncated_normal_initializer(stddev=0.5))
       embedded_inputs = tf.nn.embedding_lookup(embedding_table, inputs)          # [N, T_in, embed_depth=256]
@@ -47,7 +47,7 @@ class Tacotron():
       encoder_outputs = encoder_cbhg(prenet_outputs, input_lengths, is_training, # [N, T_in, encoder_depth=256]
                                      hp.encoder_depth)
 
-      # Attention
+      # Attention ? 全用的tf内部函数!!!!!!!!!!!!!!
       attention_cell = AttentionWrapper(
         GRUCell(hp.attention_depth),
         BahdanauAttention(hp.attention_depth, encoder_outputs),

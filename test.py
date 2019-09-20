@@ -15,9 +15,22 @@ parser.add_argument('--hparams', default='',
 args = parser.parse_args()
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 hparams.parse(args.hparams)
-print(hparams_debug_string())
+# print(hparams_debug_string())
 synthesizer = Synthesizer()
 
 synthesizer.load('/tmp/tacotron-20180906/model.ckpt')
-res=synthesizer.synthesize('apple i eat')
+res=synthesizer.synthesize('apple i eat')#所以res是 一堆数字的编码
 print(res)
+
+
+
+
+
+
+
+
+
+
+
+
+

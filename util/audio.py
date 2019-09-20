@@ -51,13 +51,13 @@ def melspectrogram(y):
   S = _amp_to_db(_linear_to_mel(np.abs(D))) - hparams.ref_level_db
   return _normalize(S)
 
-
+#找到结果音频的结束为止
 def find_endpoint(wav, threshold_db=-40, min_silence_sec=0.8):
   window_length = int(hparams.sample_rate * min_silence_sec)
-  hop_length = int(window_length / 4)
+  hop_length = int(window_length / 4)      #每一个hop_length进行扫描声音大小.
   threshold = _db_to_amp(threshold_db)
   for x in range(hop_length, len(wav) - window_length, hop_length):
-    if np.max(wav[x:x+window_length]) < threshold:
+    if np.max(wav[x:x+window_length]) < threshold: #如果声音都小,就结束扫描.
       return x + hop_length
   return len(wav)
 

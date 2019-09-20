@@ -48,6 +48,15 @@ The quality isn't as good as Google's demo yet, but hopefully it will get there 
 Pull requests are welcome!
 
 
+'''
+Harmonic enhancement for the sound is like spices for the food, it ca
+n be best used to add pleasant grit and subtle brilliance to the sound
+. Much like with spices, it is possible to overdo the effect, so be caref
+ul how much and on what sounds you apply it.
+'''
+
+
+
 
 ## Quick Start
 

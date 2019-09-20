@@ -10,7 +10,7 @@ from util import audio
 
 class Synthesizer:
   def load(self, checkpoint_path, model_name='tacotron'):
-    print('Constructing model: %s' % model_name)
+    print('Constructing model: %s' % model_name) #每次输入是一个声音.
     inputs = tf.placeholder(tf.int32, [1, None], 'inputs')
     input_lengths = tf.placeholder(tf.int32, [1], 'input_lengths')
     with tf.variable_scope('model') as scope:
@@ -36,5 +36,5 @@ class Synthesizer:
     wav = audio.inv_preemphasis(wav)
     wav = wav[:audio.find_endpoint(wav)]
     out = io.BytesIO()
-    audio.save_wav(wav, out)
+    audio.save_wav(wav, out) #存out里面
     return out.getvalue()

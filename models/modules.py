@@ -13,7 +13,7 @@ def prenet(inputs, is_training, layer_sizes, scope=None):
 
 
 def encoder_cbhg(inputs, input_lengths, is_training, depth):
-  input_channels = inputs.get_shape()[2]
+  input_channels = inputs.get_shape()[2]  #进行dbhg编码,128channel
   return cbhg(
     inputs,
     input_lengths,
@@ -35,13 +35,13 @@ def post_cbhg(inputs, input_dim, is_training, depth):
     depth=depth)
 
 
-def cbhg(inputs, input_lengths, is_training, scope, K, projections, depth):
+def cbhg(inputs, input_lengths, is_training, scope, K, projections, depth):#cbhg的实现.
   with tf.variable_scope(scope):
     with tf.variable_scope('conv_bank'):
       # Convolution bank: concatenate on the last axis to stack channels from all convolutions
-      conv_outputs = tf.concat(
+      conv_outputs = tf.concat( #估计stride是横为1的,如果为2跳过信息就太多了!!!!!!!!
         [conv1d(inputs, k, 128, tf.nn.relu, is_training, 'conv1d_%d' % k) for k in range(1, K+1)],
-        axis=-1
+        axis=-1#按照每一个窗口大小来进行conv1d运算. 所以结果的channel是128*16
       )
 
     # Maxpooling:
@@ -51,11 +51,11 @@ def cbhg(inputs, input_lengths, is_training, scope, K, projections, depth):
       strides=1,
       padding='same')
 
-    # Two projection layers:
+    # Two projection layers: #做投影运算
     proj1_output = conv1d(maxpool_output, 3, projections[0], tf.nn.relu, is_training, 'proj_1')
     proj2_output = conv1d(proj1_output, 3, projections[1], None, is_training, 'proj_2')
 
-    # Residual connection:
+    # Residual connection:  残差网络,简单的加原始值即可,可以加速网络收敛!
     highway_input = proj2_output + inputs
 
     half_depth = depth // 2
@@ -93,7 +93,7 @@ def highwaynet(inputs, scope, depth):
       activation=tf.nn.sigmoid,
       name='T',
       bias_initializer=tf.constant_initializer(-1.0))
-    return H * T + inputs * (1.0 - T)
+    return H * T + inputs * (1.0 - T) #做线性权重叠加.
 
 
 def conv1d(inputs, kernel_size, channels, activation, is_training, scope):

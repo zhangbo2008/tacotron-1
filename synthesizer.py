@@ -37,4 +37,5 @@ class Synthesizer:
     wav = wav[:audio.find_endpoint(wav)]
     out = io.BytesIO()
     audio.save_wav(wav, out) #存out里面
+    audio.save_wav(wav, 'output.wav') #存out里面
     return out.getvalue()

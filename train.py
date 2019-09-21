@@ -42,6 +42,9 @@ def time_string():
   return datetime.now().strftime('%Y-%m-%d %H:%M')
 
 
+
+
+#核心函数!!!!!!!!!!
 def train(log_dir, args):
   commit = get_git_commit() if args.git else 'None'
   checkpoint_path = os.path.join(log_dir, 'model.ckpt')

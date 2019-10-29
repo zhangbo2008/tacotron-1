@@ -18,9 +18,9 @@ hparams.parse(args.hparams)
 # print(hparams_debug_string())
 synthesizer = Synthesizer()
 
-synthesizer.load('/tmp/tacotron-20180906/model.ckpt')
-res=synthesizer.synthesize('apple i eat')#所以res是 一堆数字的编码
-print(res)
+synthesizer.load('tacotron-20180906/model.ckpt')
+res=synthesizer.synthesize('apple i eat where is Jim')#所以res是 一堆数字的编码
+
 print("结果保存在ouput.wav里面")
 
 

@@ -1,3 +1,11 @@
+总结:英文模型已经docker开源:
+docker.io/zhangbo2008/tts_english
+
+
+
+
+
+
 
 
 
@@ -10,6 +18,20 @@
 https://github.com/keithito/tacotron/issues/230
 2.中文模型下载.
 #https://github.com/keithito/tacotron/issues/118
+
+
+
+1.先搭建英文的吧.
+
+curl http://data.keithito.com/data/speech/tacotron-20180906.tar.gz 
+然后去test里面配置好路径.
+
+
+
+
+
+
+
 
 
 
